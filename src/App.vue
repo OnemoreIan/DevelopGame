@@ -3,7 +3,7 @@ import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
-  <main class="container">
+  <main class="container-fluid bg-warning">
     <RouterView />
   </main>
   <!-- <header>

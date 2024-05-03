@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 import PrincipalView from '@/views/PrincipalView.vue'
 import JrComponent from '@/components/JrComponent.vue'
 import MediumComponent from '@/components/MediumComponent.vue'
