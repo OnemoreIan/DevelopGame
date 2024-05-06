@@ -1,4 +1,4 @@
-let preguntas = [
+export let preguntas = [
     {idQuest:1,
     pregunta:"¿Qué es un bucle for en programación?",
     opc1:"Una estructura de control que se ejecuta un número específico de veces.",
@@ -210,8 +210,6 @@ let preguntas = [
     opc2:"Un conjunto de reglas para escribir código de forma clara y legible.",
     opc3:"Una interfaz que permite a diferentes sistemas de software comunicarse entre sí.",
     opc4:"Ninguna de las anteriores.",
-    res:"3"},
-
+    res:"3"}
     
-    
-]
+];
