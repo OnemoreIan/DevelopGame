@@ -4,9 +4,43 @@ import { ref } from 'vue';
 
 let showModal = ref(false);
 import {preguntas} from '../assets/preguntas.ts'
+import { log } from 'console';
 
 console.log(preguntas);
 
+// listas agrupadas en 5 preguntas
+let list1:any = ref([]);
+let list2:any = ref([]);
+let list3:any = ref([]);
+let list4:any = ref([]);
+let list5:any = ref([]);
+let list6:any = ref([]);
+
+preguntas.forEach(element => {
+
+    if(element.idQuest > 0 && element.idQuest <= 5 ){
+        list1.value.push(element);
+    }
+    if(element.idQuest > 5 && element.idQuest <= 10 ){
+        list2.value.push(element);
+    }
+    if(element.idQuest > 10 && element.idQuest <= 15 ){
+        list3.value.push(element);
+    }
+    if(element.idQuest > 15 && element.idQuest <= 20 ){
+        list4.value.push(element);
+    }
+    if(element.idQuest > 20 && element.idQuest <= 25 ){
+        list5.value.push(element);
+    }
+    if(element.idQuest > 25 && element.idQuest <= 30 ){
+        list6.value.push(element);
+    }
+
+    
+    
+});
+console.log(list1.value);
 
 </script>
 
@@ -21,20 +55,20 @@ console.log(preguntas);
         <div class="row my-2" v-for="pregunta in preguntas">
             <label for="pregunta" class="form-label">{{ `${pregunta.idQuest})`+pregunta.pregunta }}</label>
             <div class="form-check-inline">
-                <input class="form-check-input" type="radio" name="pregunta" id="opc1">
-                <label class="form-check-label" for="opc1">{{ pregunta.opc1}}</label>
+                <input class="form-check-input" type="radio" :name="'pregunta'+pregunta.idQuest" :id="pregunta.id1">
+                <label class="form-check-label" :for="pregunta.id1">{{ pregunta.opc1}}</label>
             </div>
             <div class="form-check-inline">
-                <input class="form-check-input" type="radio" name="pregunta" id="opc2">
-                <label class="form-check-label" for="opc2">{{ pregunta.opc2}}</label>
+                <input class="form-check-input" type="radio" :name="'pregunta'+pregunta.idQuest" :id="pregunta.id2">
+                <label class="form-check-label" :for="pregunta.id2">{{ pregunta.opc2}}</label>
             </div>
             <div class="form-check-inline">
-                <input class="form-check-input" type="radio" name="pregunta" id="opc3">
-                <label class="form-check-label" for="opc3">{{ pregunta.opc3}}</label>
+                <input class="form-check-input" type="radio" :name="'pregunta'+pregunta.idQuest" :id="pregunta.id3">
+                <label class="form-check-label" :for="pregunta.id3">{{ pregunta.opc3}}</label>
             </div>
             <div class="form-check-inline">
-                <input class="form-check-input" type="radio" name="pregunta" id="opc4">
-                <label class="form-check-label" for="opc4">{{ pregunta.opc4}}</label>
+                <input class="form-check-input" type="radio" :name="'pregunta'+pregunta.idQuest" :id="pregunta.id4">
+                <label class="form-check-label" :for="pregunta.id4">{{ pregunta.opc4}}</label>
             </div>
 
         </div>
