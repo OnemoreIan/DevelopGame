@@ -1,93 +1,156 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-// pendiente de usar en el modulo preguntas.js
+import { useRouter } from 'vue-router';
+import { preguntas } from '../assets/preguntas.ts';
+import { text } from 'stream/consumers';
 
+let puntero = useRouter();
 let showModal = ref(false);
-import {preguntas} from '../assets/preguntas.ts'
-import { log } from 'console';
 
-console.log(preguntas);
 
-// listas agrupadas en 5 preguntas
-let list1:any = ref([]);
-let list2:any = ref([]);
-let list3:any = ref([]);
-let list4:any = ref([]);
-let list5:any = ref([]);
-let list6:any = ref([]);
+// puntaje del examen
+let puntaje = ref(0);
+let lista=ref([]);
+let idRespuesta=0;
+let textoID = "res";
 
-preguntas.forEach(element => {
+preguntas.forEach(item => {
+    // console.log(item);
 
-    if(element.idQuest > 0 && element.idQuest <= 5 ){
-        list1.value.push(element);
-    }
-    if(element.idQuest > 5 && element.idQuest <= 10 ){
-        list2.value.push(element);
-    }
-    if(element.idQuest > 10 && element.idQuest <= 15 ){
-        list3.value.push(element);
-    }
-    if(element.idQuest > 15 && element.idQuest <= 20 ){
-        list4.value.push(element);
-    }
-    if(element.idQuest > 20 && element.idQuest <= 25 ){
-        list5.value.push(element);
-    }
-    if(element.idQuest > 25 && element.idQuest <= 30 ){
-        list6.value.push(element);
+    let elemento = {
+        idQuest: 0,
+        pregunta: "",
+        opc1: "",
+        opc2: "",
+        opc3: "",
+        opc4: "",
+        res1:0,
+        res2:0,
+        res3:0,
+        res4:0,
+        id1: "",
+        id2: "",
+        id3: "",
+        id4: ""
     }
 
-    
-    
-});
-console.log(list1.value);
+    // elementos sin modificaciones
+    elemento.idQuest = item.idQuest;
+    elemento.pregunta = item.pregunta;
+    elemento.opc1 = item.opc1;
+    elemento.opc2 = item.opc2;
+    elemento.opc3 = item.opc3;
+    elemento.opc4 = item.opc4;
 
+    // generar respuesta para todos los elementos
+    if (item.res == 1) {
+        console.log("es 1");
+        elemento.res1 = 1;
+        elemento.res2 = 0;
+        elemento.res3 = 0;
+        elemento.res4 = 0;
+    } else if (item.res == 2) {
+        console.log("es 2");
+        elemento.res1 = 0;
+        elemento.res2 = 1;
+        elemento.res3 = 0;
+        elemento.res4 = 0;
+    } else if (item.res == 3) {
+        console.log("es 3");
+        elemento.res1 = 0;
+        elemento.res2 = 0;
+        elemento.res3 = 1;
+        elemento.res4 = 0;
+    } else if (item.res == 4) {
+        console.log("es 4");
+        elemento.res1 = 0;
+        elemento.res2 = 0;
+        elemento.res3 = 0;
+        elemento.res4 = 1;
+    }
+
+    // generar los ids para las preguntas
+    elemento.id1 = (textoID+(idRespuesta++));
+    elemento.id2 = (textoID+(idRespuesta++));
+    elemento.id3 = (textoID+(idRespuesta++));
+    elemento.id4 = (textoID+(idRespuesta++));
+
+
+    lista.value.push(elemento);
+})
+console.log(lista.value);
+
+
+//verificacion del examen
+function mandarExamen() {
+    console.log("mandado exitosamente");
+    if (true) {
+        puntero.push("/");
+    }
+}
+
+/*
+terminar de implementar la nueva lista para las preguntas
+*/
 </script>
 
 <template>
     <div class="container text-left bg-info">
-        <div class="row">
-            <p class="h3">Preguntas</p>
-        </div>
 
-        <div class="row my-2"></div>
+        <form @submit.prevent="mandarExamen">
 
-        <div class="row my-2" v-for="pregunta in preguntas">
-            <label for="pregunta" class="form-label">{{ `${pregunta.idQuest})`+pregunta.pregunta }}</label>
-            <div class="form-check-inline">
-                <input class="form-check-input" type="radio" :name="'pregunta'+pregunta.idQuest" :id="pregunta.id1">
-                <label class="form-check-label" :for="pregunta.id1">{{ pregunta.opc1}}</label>
-            </div>
-            <div class="form-check-inline">
-                <input class="form-check-input" type="radio" :name="'pregunta'+pregunta.idQuest" :id="pregunta.id2">
-                <label class="form-check-label" :for="pregunta.id2">{{ pregunta.opc2}}</label>
-            </div>
-            <div class="form-check-inline">
-                <input class="form-check-input" type="radio" :name="'pregunta'+pregunta.idQuest" :id="pregunta.id3">
-                <label class="form-check-label" :for="pregunta.id3">{{ pregunta.opc3}}</label>
-            </div>
-            <div class="form-check-inline">
-                <input class="form-check-input" type="radio" :name="'pregunta'+pregunta.idQuest" :id="pregunta.id4">
-                <label class="form-check-label" :for="pregunta.id4">{{ pregunta.opc4}}</label>
+            <div class="row">
+                <p class="h3">Examen</p>
             </div>
 
-        </div>
+            <div class="row my-2"></div>
 
-        <div class="row my-3"></div>
+            <div class="row mt-2 mb-3" v-for="pregunta in preguntas">
 
-        <div class="row">
-            <span class="col-md-4">
-                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal">
-                    Cancelar
-                </button>
-            </span>
-            <span class="col-md-4"></span>
-            <span class="col-md-4">
-                <button class="btn btn-secondary">Continuar</button>
-            </span>
-        </div>
+                <div class="form-inline">
+                    <p class="blockquote">{{ `${pregunta.idQuest}) ` + pregunta.pregunta }}</p>
 
-        <div class="row my-2"></div>
+                </div>
+
+                <div class="form-check-inline">
+                    <input class="form-check-input" type="radio" :name="'pregunta' + pregunta.idQuest"
+                        :id="pregunta.id1">
+                    <label class="form-check-label" :for="pregunta.id1">{{ pregunta.opc1 }}</label>
+                </div>
+                <div class="form-check-inline">
+                    <input class="form-check-input" type="radio" :name="'pregunta' + pregunta.idQuest"
+                        :id="pregunta.id2">
+                    <label class="form-check-label" :for="pregunta.id2">{{ pregunta.opc2 }}</label>
+                </div>
+                <div class="form-check-inline">
+                    <input class="form-check-input" type="radio" :name="'pregunta' + pregunta.idQuest"
+                        :id="pregunta.id3">
+                    <label class="form-check-label" :for="pregunta.id3">{{ pregunta.opc3 }}</label>
+                </div>
+                <div class="form-check-inline">
+                    <input class="form-check-input" type="radio" :name="'pregunta' + pregunta.idQuest"
+                        :id="pregunta.id4">
+                    <label class="form-check-label" :for="pregunta.id4">{{ pregunta.opc4 }}</label>
+                </div>
+            </div>
+
+            <div class="row my-3"></div>
+
+            <div class="row">
+                <span class="col-md-4">
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal">
+                        Cancelar
+                    </button>
+                </span>
+                <span class="col-md-4"></span>
+                <span class="col-md-4">
+                    <button type="submit" class="btn btn-secondary">Terminar</button>
+                </span>
+            </div>
+
+            <div class="row my-2"></div>
+
+        </form>
 
     </div>
 
@@ -96,7 +159,7 @@ console.log(list1.value);
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header text-center">
-                    
+
                     <span class="h1 text-danger" id="ModalLabel">!!Advertencia!!</span>
                 </div>
                 <div class="modal-body">
