@@ -82,8 +82,10 @@ console.log(lista.value);
 
 
 //verificacion del examen
-function mandarExamen() {
+function mandarExamen(event) {
+
     console.log("mandado exitosamente");
+    console.log(event);
     if (true) {
         puntero.push("/");
     }
@@ -97,7 +99,7 @@ terminar de implementar la nueva lista para las preguntas
 <template>
     <div class="container text-left bg-info">
 
-        <form @submit.prevent="mandarExamen">
+        <form @submit.prevent="mandarExamen($event)">
 
             <div class="row">
                 <p class="h3">Examen</p>
@@ -105,7 +107,35 @@ terminar de implementar la nueva lista para las preguntas
 
             <div class="row my-2"></div>
 
-            <div class="row mt-2 mb-3" v-for="pregunta in preguntas">
+            <div class="row mt-2 mb-3" v-for="list in lista">
+
+                <div class="form-inline">
+                    <p class="blockquote">{{ `${list.idQuest}) ` + list.pregunta }}</p>
+
+                </div>
+
+                <div class="form-check-inline">
+                    <input class="form-check-input" type="radio" :name="list.idQuest"
+                        :id="list.id1" :value="list.res1">
+                    <label class="form-check-label" :for="list.id1">{{ list.opc1 }}</label>
+                </div>
+                <div class="form-check-inline">
+                    <input class="form-check-input" type="radio" :name="list.idQuest"
+                        :id="list.id2" :value="list.res2">
+                    <label class="form-check-label" :for="list.id2">{{ list.opc2 }}</label>
+                </div>
+                <div class="form-check-inline">
+                    <input class="form-check-input" type="radio" :name="list.idQuest"
+                        :id="list.id3" :value="list.res3">
+                    <label class="form-check-label" :for="list.id3">{{ list.opc3 }}</label>
+                </div>
+                <div class="form-check-inline">
+                    <input class="form-check-input" type="radio" :name="list.idQuest"
+                        :id="list.id4" :value="list.res4">
+                    <label class="form-check-label" :for="list.id4">{{ list.opc4 }}</label>
+                </div>
+            </div>
+            <!-- <div class="row mt-2 mb-3" v-for="pregunta in preguntas">
 
                 <div class="form-inline">
                     <p class="blockquote">{{ `${pregunta.idQuest}) ` + pregunta.pregunta }}</p>
@@ -132,7 +162,7 @@ terminar de implementar la nueva lista para las preguntas
                         :id="pregunta.id4">
                     <label class="form-check-label" :for="pregunta.id4">{{ pregunta.opc4 }}</label>
                 </div>
-            </div>
+            </div> -->
 
             <div class="row my-3"></div>
 
