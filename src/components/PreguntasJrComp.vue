@@ -10,8 +10,8 @@ let showModal = ref(false);
 
 // puntaje del examen
 let puntaje = ref(0);
-let lista=ref([]);
-let idRespuesta=0;
+let lista = ref([]);
+let idRespuesta = 0;
 let textoID = "res";
 
 preguntas.forEach(item => {
@@ -24,10 +24,10 @@ preguntas.forEach(item => {
         opc2: "",
         opc3: "",
         opc4: "",
-        res1:0,
-        res2:0,
-        res3:0,
-        res4:0,
+        res1: 0,
+        res2: 0,
+        res3: 0,
+        res4: 0,
         id1: "",
         id2: "",
         id3: "",
@@ -70,10 +70,10 @@ preguntas.forEach(item => {
     }
 
     // generar los ids para las preguntas
-    elemento.id1 = (textoID+(idRespuesta++));
-    elemento.id2 = (textoID+(idRespuesta++));
-    elemento.id3 = (textoID+(idRespuesta++));
-    elemento.id4 = (textoID+(idRespuesta++));
+    elemento.id1 = (textoID + (idRespuesta++));
+    elemento.id2 = (textoID + (idRespuesta++));
+    elemento.id3 = (textoID + (idRespuesta++));
+    elemento.id4 = (textoID + (idRespuesta++));
 
 
     lista.value.push(elemento);
@@ -82,11 +82,11 @@ console.log(lista.value);
 
 
 //verificacion del examen
-function mandarExamen(event) {
+function mandarExamen(event: any) {
 
     console.log("mandado exitosamente");
     console.log(event);
-    if (true) {
+    if (false) {
         puntero.push("/");
     }
 }
@@ -99,7 +99,7 @@ terminar de implementar la nueva lista para las preguntas
 <template>
     <div class="container text-left bg-info">
 
-        <form @submit.prevent="mandarExamen($event)">
+        <form>
 
             <div class="row">
                 <p class="h3">Examen</p>
@@ -111,27 +111,22 @@ terminar de implementar la nueva lista para las preguntas
 
                 <div class="form-inline">
                     <p class="blockquote">{{ `${list.idQuest}) ` + list.pregunta }}</p>
-
                 </div>
 
                 <div class="form-check-inline">
-                    <input class="form-check-input" type="radio" :name="list.idQuest"
-                        :id="list.id1" :value="list.res1">
+                    <input class="form-check-input" type="radio" :name="list.idQuest" :id="list.id1" :value="list.res1">
                     <label class="form-check-label" :for="list.id1">{{ list.opc1 }}</label>
                 </div>
                 <div class="form-check-inline">
-                    <input class="form-check-input" type="radio" :name="list.idQuest"
-                        :id="list.id2" :value="list.res2">
+                    <input class="form-check-input" type="radio" :name="list.idQuest" :id="list.id2" :value="list.res2">
                     <label class="form-check-label" :for="list.id2">{{ list.opc2 }}</label>
                 </div>
                 <div class="form-check-inline">
-                    <input class="form-check-input" type="radio" :name="list.idQuest"
-                        :id="list.id3" :value="list.res3">
+                    <input class="form-check-input" type="radio" :name="list.idQuest" :id="list.id3" :value="list.res3">
                     <label class="form-check-label" :for="list.id3">{{ list.opc3 }}</label>
                 </div>
                 <div class="form-check-inline">
-                    <input class="form-check-input" type="radio" :name="list.idQuest"
-                        :id="list.id4" :value="list.res4">
+                    <input class="form-check-input" type="radio" :name="list.idQuest" :id="list.id4" :value="list.res4">
                     <label class="form-check-label" :for="list.id4">{{ list.opc4 }}</label>
                 </div>
             </div>
@@ -169,12 +164,14 @@ terminar de implementar la nueva lista para las preguntas
             <div class="row">
                 <span class="col-md-4">
                     <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal">
-                        Cancelar
+                        Rendirse
                     </button>
                 </span>
                 <span class="col-md-4"></span>
                 <span class="col-md-4">
-                    <button type="submit" class="btn btn-secondary">Terminar</button>
+                    <button type="submit" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal2">
+                        Terminar
+                    </button>
                 </span>
             </div>
 
@@ -207,4 +204,29 @@ terminar de implementar la nueva lista para las preguntas
             </div>
         </div>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modal2" tabindex="-1" aria-labelledby="ModalTitle" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+
+                    <span class="h1 text-danger" id="ModalTitle">!!Advertencia!!</span>
+                </div>
+                <div class="modal-body">
+                    <p>Se descartara todo el progreso</p>
+                    <div class="row">
+                        <span class="col-md-4">
+                            <a class="btn btn-danger" href="/">Salir</a>
+                        </span>
+                        <span class="col-md-4"></span>
+                        <span class="col-md-4">
+                            <button type="button" class="btn btn-success" data-bs-dismiss="modal">Continuar</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </template>
